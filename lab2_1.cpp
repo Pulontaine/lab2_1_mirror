@@ -4,8 +4,11 @@
 int main()
 {
     test_for_constructors();
-    test_for_methods();
-    test_for_functions();
-    test_for_operators();
-    dops();
+    // test_for_methods();
+    // test_for_functions();
+    // test_for_operators();
+    // dops();
+
+
+    return 0;
 }

@@ -3,20 +3,24 @@
 
 namespace linalg{
 
-int Matrix::rows() const noexcept{
+template <typename T>
+int Matrix<T>::rows() const noexcept{
         return m_rows;
 }
 
-int Matrix::columns() const noexcept{
+template <typename T>   
+int Matrix<T>::columns() const noexcept{
         return m_columns;
 }
 
-bool Matrix::empty() const noexcept{
+template <typename T>
+bool Matrix<T>::empty() const noexcept{
 
         return (m_rows == 0 || m_ptr == nullptr || m_columns == 0);
 }
 
-Matrix& Matrix::reshape(int rows, int cols){
+template <typename T>
+Matrix<T> Matrix<T>::reshape(int rows, int cols){
         if((*this).empty()){
                 cout << "\nEmpty matrix reshape (no shanges)";
                 return *this;
@@ -31,34 +35,39 @@ Matrix& Matrix::reshape(int rows, int cols){
         return *this;
 }
 
-Matrix::Matrix() noexcept{                                       //дефолтный конструктор
+template <typename T>
+Matrix<T>::Matrix() noexcept{                                       //дефолтный конструктор
         m_columns = 0;
         m_rows = 0;
         m_ptr = nullptr;
+        m_capacity = 0;
 }
 
-Matrix::Matrix(int rows): m_rows(rows), m_columns(1){
+template <typename T>
+Matrix<T>::Matrix(int rows): m_rows(rows), m_columns(1){
         if (rows <= 0)
         {
                 throw runtime_error("\nError: Size should contain only positive numbers.\n");
         }
-        m_ptr = new double[rows];
+        m_ptr = new T[rows];
 }
 
-Matrix::Matrix(int rows, int cols) : m_rows(rows), m_columns(cols)  //конструктор с заданным кол-вом строк и/или столбцов
+template <typename T>
+Matrix<T>::Matrix(int rows, int cols) : m_rows(rows), m_columns(cols)  //конструктор с заданным кол-вом строк и/или столбцов
 {
         if (rows <= 0 || cols <= 0)
         {
                 throw runtime_error("\nError: Size should contain only positive numbers.\n");
         }
-        m_ptr = new double[rows * cols];
+        m_ptr = new T[rows * cols];
 }
 
-Matrix::Matrix(const Matrix &other) noexcept{                                    // конструктор копирования
+template <typename T>
+Matrix<T>::Matrix(const Matrix<T> &other) noexcept{                                    // конструктор копирования
         m_columns = other.m_columns;
         m_rows = other.m_rows;
         if(!other.empty()){
-                m_ptr = new double[other.m_rows * other.m_columns];
+                m_ptr = new T[other.m_rows * other.m_columns];
                 for (int i = 0; i < other.m_columns * other.m_rows; i++)
                 {
                         m_ptr[i] = other.m_ptr[i];
@@ -67,7 +76,25 @@ Matrix::Matrix(const Matrix &other) noexcept{                                   
         else m_ptr = nullptr;
 }
 
-Matrix::Matrix(Matrix &&moved) noexcept                                  // конструктор перемещения
+template <typename T>
+template <typename C>
+Matrix<T>::Matrix(const Matrix<C> &other) noexcept{                                    // конструктор копирования
+        m_columns = other.m_columns;
+        m_rows = other.m_rows;
+        if(!other.empty()){
+                m_ptr = new T[other.m_rows * other.m_columns];
+                for (int i = 0; i < other.m_columns * other.m_rows; i++)
+                {
+                        m_ptr[i] = other.m_ptr[i];
+                }
+        }
+        else m_ptr = nullptr;
+}
+
+
+
+template <typename T>
+Matrix<T>::Matrix(Matrix &&moved) noexcept                                  // конструктор перемещения
 { 
         m_rows = moved.rows();
         m_columns = moved.columns();
@@ -77,16 +104,20 @@ Matrix::Matrix(Matrix &&moved) noexcept                                  // ко
         moved.m_ptr = nullptr;
 }
 
-Matrix::Matrix(initializer_list<double> init_list) noexcept{             //конструктор для initializer list
+template <typename T>
+template <typename C>
+Matrix<T>::Matrix(initializer_list<C> init_list) noexcept{             //конструктор для initializer list
         this->m_rows = init_list.size();
         this->m_columns = 1;
-        this->m_ptr = new double[m_rows];
+        this->m_ptr = new T[m_rows];
         for (int i = 0; i < m_rows; i++){
                 m_ptr[i] = *(init_list.begin() + i);
         }
 }
 
-Matrix::Matrix(initializer_list<initializer_list<double>> init_list){    //конструктор для initializer list с initializer list внутри
+template <typename T>
+template <typename C>
+Matrix<T>::Matrix(initializer_list<initializer_list<C>> init_list){    //конструктор для initializer list с initializer list внутри
         int tmp = 0;
         auto check = *init_list.begin();
         this->m_rows = init_list.size();
@@ -96,7 +127,7 @@ Matrix::Matrix(initializer_list<initializer_list<double>> init_list){    //ко�
                 }
                 this->m_columns = i.size();
         }
-        this->m_ptr = new double[this->m_rows * this->m_columns];
+        this->m_ptr = new T[this->m_rows * this->m_columns];
         auto it = init_list.begin();
 
         for (int i = 0; i < m_rows * m_columns; i++){
@@ -108,11 +139,14 @@ Matrix::Matrix(initializer_list<initializer_list<double>> init_list){    //ко�
         }
 }
 
-Matrix::~Matrix(){
+template <typename T>
+Matrix<T>::~Matrix(){
         delete[] m_ptr;
 }
 
-Matrix &Matrix::operator=(const Matrix &copy) noexcept{                           //копирующий оператор 
+template <typename T>
+template <typename C>
+Matrix<T> Matrix<T>::operator=(const Matrix<C> &copy) noexcept{                           //копирующий оператор 
         m_rows = copy.m_rows;
         m_columns = copy.m_columns;
         if(!this->empty()){
@@ -122,7 +156,7 @@ Matrix &Matrix::operator=(const Matrix &copy) noexcept{                         
                 m_ptr = nullptr;
         }
         else{
-                m_ptr = new double[copy.m_rows * copy.m_columns];
+                m_ptr = new T[copy.m_rows * copy.m_columns];
                 for (int i = 0; i < copy.m_columns * copy.m_rows; i++)
                 {
                         m_ptr[i] = copy.m_ptr[i];
@@ -131,7 +165,27 @@ Matrix &Matrix::operator=(const Matrix &copy) noexcept{                         
         return *this;
 }
 
-Matrix &Matrix::operator=(Matrix &&moved) noexcept{                               //перемещающий оператор
+template <typename T>
+Matrix<T> Matrix<T>::operator=(const Matrix<T> &copy) noexcept{                           //копирующий оператор 
+        m_rows = copy.m_rows;
+        m_columns = copy.m_columns;
+        if(!this->empty()){
+                delete[] m_ptr;
+        }
+        if(copy.empty()){
+                m_ptr = nullptr;
+        }
+        else{
+                m_ptr = new T[copy.m_rows * copy.m_columns];
+                for (int i = 0; i < copy.m_columns * copy.m_rows; i++)
+                {
+                        m_ptr[i] = copy.m_ptr[i];
+                }
+        }
+        return *this;
+}
+template <typename T>
+Matrix<T> Matrix<T>::operator=(Matrix<T> &&moved) noexcept{                               //перемещающий оператор
         if (&moved != this)
         {
                 m_ptr = moved.m_ptr;
@@ -144,7 +198,8 @@ Matrix &Matrix::operator=(Matrix &&moved) noexcept{                             
         return *this;
 }
 
-double &Matrix::operator () (int i, int j){
+template <typename T>
+T &Matrix<T>::operator () (int i, int j){
         if(this->empty()){
                 throw runtime_error("Error: matrix is empty.\n");
         }
@@ -154,7 +209,8 @@ double &Matrix::operator () (int i, int j){
         return *(this->m_ptr + i * this->m_columns + j);
 }
 
-double Matrix::operator () (int i, int j) const{
+template <typename T>
+T Matrix<T>::operator () (int i, int j) const{
         if(this->empty()){
                 throw runtime_error("Error: matrix is empty.\n");
         }
@@ -164,7 +220,9 @@ double Matrix::operator () (int i, int j) const{
         return *(this->m_ptr + i * this->m_columns + j);
 }
 
-Matrix Matrix::operator + (const Matrix& right) const{
+template <typename T>
+template <typename C>
+Matrix<decltype(T{} + C{})> Matrix<T>::operator + (const Matrix<C>& right) const{
         Matrix sum(*this);
         if(this->empty() || right.empty()){
                 throw runtime_error("Error: empty matrix.\n");
@@ -178,7 +236,9 @@ Matrix Matrix::operator + (const Matrix& right) const{
         return sum;
 }
 
-Matrix& Matrix::operator += (const Matrix& right){
+template <typename T>
+template <typename C>
+Matrix<T>& Matrix<T>::operator += (const Matrix<C>& right){
         if(this->empty() || right.empty()){
                 throw runtime_error("Error: empty matrix.\n");
         }
@@ -191,7 +251,9 @@ Matrix& Matrix::operator += (const Matrix& right){
         return *this;
 }
 
-Matrix Matrix::operator - (const Matrix& right) const{
+template <typename T>
+template <typename C>
+Matrix<decltype(C{} - T{})> Matrix<T>::operator - (const Matrix<C>& right) const{
         Matrix dif(*this);
         if(this->empty() || right.empty()){
                 throw runtime_error("Error: empty matrix.\n");
@@ -205,7 +267,9 @@ Matrix Matrix::operator - (const Matrix& right) const{
         return dif;
 }
 
-Matrix& Matrix::operator -= (const Matrix& right){
+template <typename T>
+template <typename C>
+Matrix<T>& Matrix<T>::operator -= (const Matrix<C>& right){
         if(this->empty() || right.empty()){
                 throw runtime_error("Error: empty matrix.\n");
         }
@@ -218,7 +282,9 @@ Matrix& Matrix::operator -= (const Matrix& right){
         return *this;
 }
 
-Matrix Matrix::operator * (const Matrix& other) const{ //Matrix * Matrix
+template <typename T>
+template <typename C>
+Matrix<decltype(C{} * T{})> Matrix<T>::operator * (const Matrix<C>& other) const{ //Matrix * Matrix
         if ((this->empty()) || (other.empty())){
 		throw std::runtime_error("\nError: empty matrix multiplication.\n");
         }
@@ -241,7 +307,9 @@ Matrix Matrix::operator * (const Matrix& other) const{ //Matrix * Matrix
 
 }
 
-Matrix Matrix::operator * (const double& num) const{ // Matrix * double
+template <typename T>
+template <typename C>
+Matrix<decltype(C{} * double{})> Matrix<T>::operator * (const double& num) const{ // Matrix * double
         if(this->empty()){
                 throw runtime_error("\nError: empty matrix.\n");
         }
@@ -252,7 +320,9 @@ Matrix Matrix::operator * (const double& num) const{ // Matrix * double
         return mult;
 }
 
-Matrix& Matrix::operator *= (const Matrix& other){ // Matrix *= Matrix
+template <typename T>
+template <typename C>
+Matrix<T>& Matrix<T>::operator *= (const Matrix<C>& other){ // Matrix *= Matrix
         if(this->empty() || other.empty()){
                 throw runtime_error("\nError: matrix is empty.\n");
         }
@@ -273,8 +343,8 @@ Matrix& Matrix::operator *= (const Matrix& other){ // Matrix *= Matrix
 
 }
 
-
-Matrix operator * (double num, const Matrix &rval){ // double * Matrix
+template <typename T>
+Matrix<decltype(double{} * T{})> operator * (double num, const Matrix<T> &rval){ // double * Matrix
         if(rval.empty()){
                 throw runtime_error("\nError: matrix is empty.\n");
         }
@@ -285,7 +355,8 @@ Matrix operator * (double num, const Matrix &rval){ // double * Matrix
         return mult;
 }
 
-Matrix& Matrix::operator *= (double num){ // Matrix *= double
+template <typename T>
+Matrix<T>& Matrix<T>::operator *= (double num){ // Matrix *= double
         if(this->empty()){
                 throw runtime_error("\nError: empty matrix.\n");
         }
@@ -295,31 +366,37 @@ Matrix& Matrix::operator *= (double num){ // Matrix *= double
         return *this;
 }
 
-bool operator == (const Matrix& left, const Matrix& right) noexcept{ // Matrix == Matrix
-        if(left.m_columns != right.m_columns || left.m_rows != right.m_rows){
+template <typename T>
+template <typename C>
+bool Matrix<T>::operator == (const Matrix<C>& right) noexcept{ // Matrix == Matrix
+        if(this->m_columns != right.m_columns || this->m_rows != right.m_rows){
                 return false;
         }
-        if(!left.empty() && !right.empty()){
-                for(int i = 0; i < left.m_columns*left.m_rows; i++){
-                        if(left.m_ptr[i] != right.m_ptr[i]) return false;
+        
+        if(!this.empty() && !right.empty()){
+                for(int i = 0; i < this->m_columns * this->m_rows; i++){
+                        if(this->m_ptr[i] != right.m_ptr[i]) return false;
                 }
         }
         return true;
 }
 
-bool operator != (const Matrix& left, const Matrix& right) noexcept{ // Matrix != Matrix
-        if(left.m_columns != right.m_columns || left.m_rows != right.m_rows){
+template <typename T>
+template <typename C>
+bool Matrix<T>::operator != (const Matrix<C>& right) noexcept{ // Matrix != Matrix
+        if(this->m_columns != right.m_columns || this->m_rows != right.m_rows){
                 return true;
         }
-        if(!left.empty() && !right.empty()){
-                for(int i = 0; i < left.m_columns*left.m_rows; i++){
-                        if(left.m_ptr[i] != right.m_ptr[i]) return true;
+        if(!this.empty() && !right.empty()){
+                for(int i = 0; i < this->m_columns * this->m_rows; i++){
+                        if(this->m_ptr[i] != right.m_ptr[i]) return true;
                 }
         }
         return false;
 }
 
-double Matrix::norm() const noexcept{ //Норма Фробениуса
+template <typename T>
+double Matrix<T>::norm() const noexcept{ //Норма Фробениуса
         double norma = 0;
         for(int i = 0; i < this->m_columns*this->m_rows; i++){
                 norma += (this->m_ptr[i]) * (this->m_ptr[i]);
@@ -328,7 +405,8 @@ double Matrix::norm() const noexcept{ //Норма Фробениуса
         return norma;
 }
 
-double Matrix::trace() const{ //След матрицы
+template <typename T>
+double Matrix<T>::trace() const{ //След матрицы
         if(this->m_columns != this->m_rows){
                 throw runtime_error("\nError: Matrix is not square.\n");
         }
@@ -349,7 +427,8 @@ int width(double number) { //Вспомогательная функция дл�
         return width;
 }
 
-ostream& operator << (ostream& os, const Matrix& M) noexcept { //перегрузка оператора вывода
+template <typename T>
+ostream& operator << (ostream& os, const Matrix<T>& M) noexcept { //перегрузка оператора вывода
         if (!M.empty()) {
                 int* max_width;
                 max_width = new int[M.m_columns]; //в массиве будут самые длинные числа в столбцах
@@ -373,21 +452,23 @@ ostream& operator << (ostream& os, const Matrix& M) noexcept { //перегру�
         return os << endl;
 };
 
-Matrix transpose(const Matrix& m) noexcept{ //функция транспонирования матрицы
+template <typename T>
+Matrix<T> transpose(const Matrix<T>& m) noexcept{ //функция транспонирования матрицы
         if(m.empty()) {
                 cout << "\nYou transpose empty matrix(no changes).\n";
-                return Matrix();
+                return Matrix<T>();
         }
-        Matrix T(m.m_columns, m.m_rows);
+        Matrix<T> N(m);
         for(int i = 0; i < m.m_columns; i++){
                 for(int j = 0; j < m.m_rows; j++){
-                        T.m_ptr[j*m.m_columns+i] = m.m_ptr[i*m.m_rows+j];
+                        N.m_ptr[j*m.m_columns+i] = m.m_ptr[i*m.m_rows+j];
                 }
         }
-        return T;
+        return N;
 }
 
-Matrix concatenate(const Matrix& m1, const Matrix& m2){ //функция конкатенации
+template <typename T>
+Matrix<T> concatenate(const Matrix<T>& m1, const Matrix<T>& m2){ //функция конкатенации
         if(m1.empty() || m2.empty()){
                 throw runtime_error("\nError: can't concatenate empty matrix.\n");
         }
@@ -407,7 +488,8 @@ Matrix concatenate(const Matrix& m1, const Matrix& m2){ //функция кон�
         return con;
 }
 
-Matrix power(const Matrix &m, int degree){ //Возведение матрицы в степень
+template <typename T>
+Matrix<T> power(const Matrix<T> &m, int degree){ //Возведение матрицы в степень
         if(m.m_columns != m.m_rows) throw runtime_error("\nError: matrix is not square shape.\n");
         if(m.m_columns == 0 || m.m_rows == 0) throw runtime_error("\nError: matrix is empty.\n");
         if(degree == 0){
@@ -437,7 +519,8 @@ inline static bool is_equal(double first, double second) { //из-за типа 
         return fabs(first - second) <= numeric_limits<double>::epsilon() * 100;
     }
 
-Matrix &Matrix::gauss_forward() noexcept { //Прямой ход метода Гаусса
+template <typename T>
+Matrix<T> &Matrix<T>::gauss_forward() noexcept { //Прямой ход метода Гаусса
         int shift = 0;
         for (int i = 0; i < m_rows - 1; i++) { // m_rows - 1, т. к. не проверяем послелнюю строку
             if (shift + i >= m_columns) break; //shift - смещение для треугольного вида
@@ -445,7 +528,7 @@ Matrix &Matrix::gauss_forward() noexcept { //Прямой ход метода Г
                 for (int p = i + 1; p < m_rows; p++){     //идем по всем следующим за i строкам
                     if (!is_equal(m_ptr[p * m_columns + i + shift], 0)) {
                         for (int g = i + shift; g < m_columns; g++) { //если первый элемент в следующей строке не 0
-                            double element = m_ptr[i * m_columns + g]; //то меняем строки местами
+                            T element = m_ptr[i * m_columns + g]; //то меняем строки местами
                             m_ptr[i * m_columns + g] = m_ptr[p * m_columns + g];
                             m_ptr[p * m_columns + g] = element;
                         }
@@ -459,7 +542,7 @@ Matrix &Matrix::gauss_forward() noexcept { //Прямой ход метода Г
                 continue; // не можем выбрать ведущий элемент 0, поэтому переходим в цикле принудительно
             }
             for (int j = i + 1; j < m_rows; j++){
-                double coefficient = m_ptr[j * m_columns + i + shift] / m_ptr[i * m_columns + i + shift];
+                T coefficient = m_ptr[j * m_columns + i + shift] / m_ptr[i * m_columns + i + shift];
                 if (coefficient == 0) continue; //если элемент в строке уже ноль
                 for (int k = i; k < m_columns; k++) {
                     m_ptr[j * m_columns + k + shift] -= m_ptr[i * m_columns + k + shift] * coefficient; //хотя бы 1 элемент в строке теперь 0
@@ -469,7 +552,8 @@ Matrix &Matrix::gauss_forward() noexcept { //Прямой ход метода Г
         return *this;
     }
 
-Matrix &Matrix::gauss_backward() {
+template <typename T>
+Matrix<T> &Matrix<T>::gauss_backward() {
         if ((m_columns - 1 != m_rows) && (this->m_columns / 2) != this->m_rows) 
                 throw runtime_error("\nError! Matrix size is wrong or empty\n");
         int shift, real_shift = 0;
@@ -484,7 +568,7 @@ Matrix &Matrix::gauss_backward() {
             tmp.m_columns = this->m_columns / 2;
             tmp.m_rows = this->m_rows;
         }
-        tmp.m_ptr = new double[tmp.m_columns * tmp.m_rows];
+        tmp.m_ptr = new T[tmp.m_columns * tmp.m_rows];
         for (int i = 0; i < tmp.m_columns * tmp.m_rows; i++){
             if (i % tmp.m_columns == 0 && i != 0)
                 real_shift += shift;
@@ -495,14 +579,14 @@ Matrix &Matrix::gauss_backward() {
         }
 
         for (int i = m_rows - 1; i >= 0; i--){
-            double norm_coef = this->m_ptr[i * this->m_columns + i];
+            T norm_coef = this->m_ptr[i * this->m_columns + i];
             this->m_ptr[i * this->m_columns + i] /= norm_coef;
             for (int j = this->m_rows; j < this->m_columns; j++){
                 this->m_ptr[i * this->m_columns + j] /= norm_coef;
             }
             if (i != 0){
                 for (int j = i - 1; j >= 0; j--){
-                    double coef = this->m_ptr[j * this->m_columns + i];
+                    T coef = this->m_ptr[j * this->m_columns + i];
                     this->m_ptr[j * this->m_columns + i] -= this->m_ptr[i * this->m_columns + i] * coef;
                     for (int k = this->m_rows; k < this->m_columns; k++){
                         this->m_ptr[j * this->m_columns + k] -= this->m_ptr[i * this->m_columns + k] * coef;
@@ -513,7 +597,8 @@ Matrix &Matrix::gauss_backward() {
         return *this;
     }
 
-double Matrix::det() const{
+template <typename T>
+T Matrix<T>::det() const{
         int degree = 0;
         if (this->m_columns != this->m_rows) throw runtime_error("\nError! Matrix is not square.\n");
         if (m_columns == 0 || m_rows == 0) throw runtime_error("\nError! Matrix is empty.\n");
@@ -524,7 +609,7 @@ double Matrix::det() const{
                 for (int p = i + 1; p < this->m_rows; p++){
                     if (!is_equal(tmp.m_ptr[p * this->m_columns + i], 0)){
                         for (int g = i; g < tmp.m_columns; g++){
-                            double val = tmp.m_ptr[i * this->m_columns + g];
+                            T val = tmp.m_ptr[i * this->m_columns + g];
                             tmp.m_ptr[i * this->m_columns + g] = tmp.m_ptr[p * this->m_columns + g];
                             tmp.m_ptr[p * this->m_columns + g] = val;
                         }
@@ -536,13 +621,13 @@ double Matrix::det() const{
                 return 0;
             }
             for (int j = i + 1; j < this->m_rows; j++){
-                double coef = tmp.m_ptr[j * this->m_columns + i] / tmp.m_ptr[i * this->m_columns + i];
+                T coef = tmp.m_ptr[j * this->m_columns + i] / tmp.m_ptr[i * this->m_columns + i];
                 for (int k = i; k < m_columns; k++){
                     tmp.m_ptr[j * this->m_columns + k] -= tmp.m_ptr[i * this->m_columns + k] * coef;
                 }
             }
         }
-        double res = tmp.m_ptr[0];
+        T res = tmp.m_ptr[0];
         for (int i = tmp.m_columns; i < this->m_rows * this->m_columns; i++) {
             if (i % tmp.m_columns == i / tmp.m_columns)
                 res *= tmp.m_ptr[i];
@@ -550,7 +635,8 @@ double Matrix::det() const{
         return res * pow((-1), degree);
 }
 
-Matrix invert(const Matrix &mat){
+template <typename T>
+Matrix<T> invert(const Matrix<T> &mat){
         if (!mat.det()) {
             throw runtime_error("\nError: determinant = 0 (division by zero).\n");
         }
@@ -575,7 +661,8 @@ Matrix invert(const Matrix &mat){
         return res;
 }
 
-Matrix solve(const Matrix &A, const Matrix &f) {
+template <typename T>
+Matrix<T> solve(const Matrix<T> &A, const Matrix<T> &f) {
         if (!A.det())
             throw runtime_error("\nError! Determinant of system matrix is 0.\n");
         Matrix m = concatenate(A, f);
@@ -588,8 +675,8 @@ Matrix solve(const Matrix &A, const Matrix &f) {
         return sol;
 }
 
-
-int Matrix::rank() const noexcept{ //ранг матрицы
+template <typename T>
+int Matrix<T>::rank() const noexcept{ //ранг матрицы
         Matrix m(*this);
         int s = 0;
         int flag = 0;
@@ -611,7 +698,9 @@ int Matrix::rank() const noexcept{ //ранг матрицы
 
 //========================= Дополнительные задания
 
-Matrix Matrix::operator - () const noexcept{ //унарный минус  
+template <typename T>
+template <typename C>
+Matrix<C> Matrix<T>::operator - () const noexcept{ //унарный минус  
     Matrix result(m_rows, m_columns);
     for (int i = 0; i < m_rows; i++) {
         for (int j = 0; j < m_columns; j++) {
@@ -621,7 +710,8 @@ Matrix Matrix::operator - () const noexcept{ //унарный минус
     return result;
 }
 
-double Matrix::minor(int num_row, int num_col){ //минор матрицы (индексация с 0)
+template <typename T>
+T Matrix<T>::minor(int num_row, int num_col){ //минор матрицы (индексация с 0)
         if (num_row < 0 || num_col < 0)
                 throw runtime_error("\nError! Can't use negative numbers.\n");
         if (num_row > m_rows - 1 || num_col > m_columns - 1)
@@ -637,7 +727,8 @@ double Matrix::minor(int num_row, int num_col){ //минор матрицы (и�
         return tmp.det();
     }
 
-Matrix vertical_concatenate(const Matrix &m1, const Matrix &m2){ //вертикальная конкатенация
+template <typename T>
+Matrix<T> vertical_concatenate(const Matrix<T> &m1, const Matrix<T> &m2){ //вертикальная конкатенация
         if(m1.empty() || m2.empty()){
                 throw runtime_error("\nError: can't concatenate empty matrix.\n");
         }
@@ -651,6 +742,29 @@ Matrix vertical_concatenate(const Matrix &m1, const Matrix &m2){ //вертик�
         }
         return tmp;
     }
+
+template <typename T>
+int Matrix<T>::capacity() const{
+        return this->m_capacity;
+}
+
+template <typename T>
+void Matrix<T>::reserve(int n) const{
+        this->m_capacity = n;
+        this->m_ptr = (T*)realloc(this->m_ptr, n);
+}
+
+template <typename T>
+void Matrix<T>::shrink_to_fit() const{
+        this->m_ptr = (T*)realloc(this->m_ptr, this->m_rows * this-> m_columns);
+        this->m_capacity = this->m_rows * this-> m_columns;
+}
+
+template <typename T>
+void Matrix<T>::clear() const{
+        this->m_columns = 0;
+        this->m_rows = 0;
+}
 
 
 }

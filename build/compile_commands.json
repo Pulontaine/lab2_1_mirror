@@ -6,12 +6,12 @@
 },
 {
   "directory": "C:/lab2_1/build",
-  "command": "C:/Users/Ivan2/gcc/bin/c++.exe   -g -o CMakeFiles/buildin.dir/Matrix.cpp.obj -c C:/lab2_1/Matrix.cpp",
-  "file": "C:/lab2_1/Matrix.cpp"
+  "command": "C:/Users/Ivan2/gcc/bin/c++.exe   -g -o CMakeFiles/buildin.dir/test.cpp.obj -c C:/lab2_1/test.cpp",
+  "file": "C:/lab2_1/test.cpp"
 },
 {
   "directory": "C:/lab2_1/build",
-  "command": "C:/Users/Ivan2/gcc/bin/c++.exe   -g -o CMakeFiles/buildin.dir/test.cpp.obj -c C:/lab2_1/test.cpp",
-  "file": "C:/lab2_1/test.cpp"
+  "command": "C:/Users/Ivan2/gcc/bin/c++.exe   -g -o CMakeFiles/buildin.dir/Matrix.cpp.obj -c C:/lab2_1/Matrix.cpp",
+  "file": "C:/lab2_1/Matrix.cpp"
 }
 ]

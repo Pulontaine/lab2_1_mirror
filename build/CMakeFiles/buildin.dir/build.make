@@ -83,24 +83,10 @@ CMakeFiles/buildin.dir/lab2_1.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/buildin.dir/lab2_1.cpp.s"
 	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:/lab2_1/lab2_1.cpp -o CMakeFiles/buildin.dir/lab2_1.cpp.s
 
-CMakeFiles/buildin.dir/Matrix.cpp.obj: CMakeFiles/buildin.dir/flags.make
-CMakeFiles/buildin.dir/Matrix.cpp.obj: C:/lab2_1/Matrix.cpp
-CMakeFiles/buildin.dir/Matrix.cpp.obj: CMakeFiles/buildin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:/lab2_1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/buildin.dir/Matrix.cpp.obj"
-	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/buildin.dir/Matrix.cpp.obj -MF CMakeFiles/buildin.dir/Matrix.cpp.obj.d -o CMakeFiles/buildin.dir/Matrix.cpp.obj -c C:/lab2_1/Matrix.cpp
-
-CMakeFiles/buildin.dir/Matrix.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/buildin.dir/Matrix.cpp.i"
-	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:/lab2_1/Matrix.cpp > CMakeFiles/buildin.dir/Matrix.cpp.i
-
-CMakeFiles/buildin.dir/Matrix.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/buildin.dir/Matrix.cpp.s"
-	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:/lab2_1/Matrix.cpp -o CMakeFiles/buildin.dir/Matrix.cpp.s
-
 CMakeFiles/buildin.dir/test.cpp.obj: CMakeFiles/buildin.dir/flags.make
 CMakeFiles/buildin.dir/test.cpp.obj: C:/lab2_1/test.cpp
 CMakeFiles/buildin.dir/test.cpp.obj: CMakeFiles/buildin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:/lab2_1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/buildin.dir/test.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:/lab2_1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/buildin.dir/test.cpp.obj"
 	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/buildin.dir/test.cpp.obj -MF CMakeFiles/buildin.dir/test.cpp.obj.d -o CMakeFiles/buildin.dir/test.cpp.obj -c C:/lab2_1/test.cpp
 
 CMakeFiles/buildin.dir/test.cpp.i: cmake_force
@@ -111,18 +97,32 @@ CMakeFiles/buildin.dir/test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/buildin.dir/test.cpp.s"
 	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:/lab2_1/test.cpp -o CMakeFiles/buildin.dir/test.cpp.s
 
+CMakeFiles/buildin.dir/Matrix.cpp.obj: CMakeFiles/buildin.dir/flags.make
+CMakeFiles/buildin.dir/Matrix.cpp.obj: C:/lab2_1/Matrix.cpp
+CMakeFiles/buildin.dir/Matrix.cpp.obj: CMakeFiles/buildin.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:/lab2_1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/buildin.dir/Matrix.cpp.obj"
+	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/buildin.dir/Matrix.cpp.obj -MF CMakeFiles/buildin.dir/Matrix.cpp.obj.d -o CMakeFiles/buildin.dir/Matrix.cpp.obj -c C:/lab2_1/Matrix.cpp
+
+CMakeFiles/buildin.dir/Matrix.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/buildin.dir/Matrix.cpp.i"
+	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:/lab2_1/Matrix.cpp > CMakeFiles/buildin.dir/Matrix.cpp.i
+
+CMakeFiles/buildin.dir/Matrix.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/buildin.dir/Matrix.cpp.s"
+	C:/Users/Ivan2/gcc/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:/lab2_1/Matrix.cpp -o CMakeFiles/buildin.dir/Matrix.cpp.s
+
 # Object files for target buildin
 buildin_OBJECTS = \
 "CMakeFiles/buildin.dir/lab2_1.cpp.obj" \
-"CMakeFiles/buildin.dir/Matrix.cpp.obj" \
-"CMakeFiles/buildin.dir/test.cpp.obj"
+"CMakeFiles/buildin.dir/test.cpp.obj" \
+"CMakeFiles/buildin.dir/Matrix.cpp.obj"
 
 # External object files for target buildin
 buildin_EXTERNAL_OBJECTS =
 
 buildin.exe: CMakeFiles/buildin.dir/lab2_1.cpp.obj
-buildin.exe: CMakeFiles/buildin.dir/Matrix.cpp.obj
 buildin.exe: CMakeFiles/buildin.dir/test.cpp.obj
+buildin.exe: CMakeFiles/buildin.dir/Matrix.cpp.obj
 buildin.exe: CMakeFiles/buildin.dir/build.make
 buildin.exe: CMakeFiles/buildin.dir/linklibs.rsp
 buildin.exe: CMakeFiles/buildin.dir/objects1.rsp
