@@ -837,12 +837,12 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 CMakeFiles/buildin.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/buildin.dir/build.make CMakeFiles/buildin.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/buildin.dir/build.make CMakeFiles/buildin.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:/lab2_1/build/CMakeFiles --progress-num=1,2,3,4 "Built target buildin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:/lab2_1/build/CMakeFiles --progress-num=1,2,3 "Built target buildin"
 .PHONY : CMakeFiles/buildin.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/buildin.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:/lab2_1/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start C:/lab2_1/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/buildin.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:/lab2_1/build/CMakeFiles 0
 .PHONY : CMakeFiles/buildin.dir/rule

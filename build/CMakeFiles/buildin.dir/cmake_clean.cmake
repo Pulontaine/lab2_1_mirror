@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/buildin.dir/Matrix.cpp.obj"
-  "CMakeFiles/buildin.dir/Matrix.cpp.obj.d"
   "CMakeFiles/buildin.dir/lab2_1.cpp.obj"
   "CMakeFiles/buildin.dir/lab2_1.cpp.obj.d"
   "CMakeFiles/buildin.dir/test.cpp.obj"

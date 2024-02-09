@@ -2,6 +2,9 @@
 #include <initializer_list> 
 #include <cmath>
 #include <iomanip>
+#include <limits>
+#include <sstream>
+#include <stdexcept>
 #pragma once
 using namespace std;
 
@@ -21,7 +24,11 @@ namespace linalg
         int rows() const noexcept;
         int columns() const noexcept;
         bool empty() const noexcept;
+        capacity() const noexcept;
+        T ptr(int i) const noexcept;
         Matrix<T> reshape(int rows, int cols);
+
+        int width(T number);
 
         Matrix() noexcept;
         Matrix(int rows);
@@ -119,8 +126,6 @@ namespace linalg
         template <typename C>
         friend Matrix<C> vertical_concatenate(const Matrix<C> &m1, const Matrix<C> &m2); //вертикальная конкатенация
 
-        int capacity() const;
-
         void reserve(int n) const;
 
         void shrink_to_fit() const;
@@ -130,3 +135,5 @@ namespace linalg
 
 
 }; // namespace linalg
+
+#include "Matrix.hpp"

@@ -523,30 +523,6 @@ buildin/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/buildin.dir/build.make CMakeFiles/buildin.dir/build
 .PHONY : buildin/fast
 
-Matrix.obj: Matrix.cpp.obj
-.PHONY : Matrix.obj
-
-# target to build an object file
-Matrix.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/buildin.dir/build.make CMakeFiles/buildin.dir/Matrix.cpp.obj
-.PHONY : Matrix.cpp.obj
-
-Matrix.i: Matrix.cpp.i
-.PHONY : Matrix.i
-
-# target to preprocess a source file
-Matrix.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/buildin.dir/build.make CMakeFiles/buildin.dir/Matrix.cpp.i
-.PHONY : Matrix.cpp.i
-
-Matrix.s: Matrix.cpp.s
-.PHONY : Matrix.s
-
-# target to generate assembly for a file
-Matrix.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/buildin.dir/build.make CMakeFiles/buildin.dir/Matrix.cpp.s
-.PHONY : Matrix.cpp.s
-
 lab2_1.obj: lab2_1.cpp.obj
 .PHONY : lab2_1.obj
 
@@ -635,9 +611,6 @@ help:
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
 	@echo "... buildin"
-	@echo "... Matrix.obj"
-	@echo "... Matrix.i"
-	@echo "... Matrix.s"
 	@echo "... lab2_1.obj"
 	@echo "... lab2_1.i"
 	@echo "... lab2_1.s"

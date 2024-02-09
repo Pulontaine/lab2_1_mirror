@@ -3,7 +3,6 @@
 #include <iostream>
 #include <stdexcept>
 using namespace std;
-using namespace linalg;
 #define T int
 
 
@@ -12,6 +11,34 @@ void constructor_by_default(){
 	cout << "\n\n________________________________________________________\n";
 	cout << "linalg::Matrix m0;\n";
 	cout << "Take 0 arguments and make empty matrix.\n";
+
+	linalg::Matrix<double> m_d = { {1, 2}, {3, 4}, {5, 6} };
+	// double список инициализации в int матрицу
+	linalg::Matrix<int> m_i = { {1.1, 2.2, 3.3}, {4.4, 5.5, 6.6} };
+
+	cout << m_i;
+	// инициализация short матрицы с помощью double матрицы
+	linalg::Matrix<short> m_s = m_d;
+	// присваивание int матрицы в short матрицу
+	m_s = m_i;
+	cout << "m_s (short): \n" << m_s;
+
+	cout << "\nm_i (int): \n" << m_i;
+	// Арифметические операции между матрицами с разными типами:
+	m_s += m_i;
+	m_s -= m_i;
+
+	cout << "\nm_s:\n" << m_s;
+	m_s *= 3.14;
+	m_s + m_i - m_s;
+	m_d * m_i;
+	//m_d * 1.2;
+	3.14 * m_i;
+	// Сравнение матриц с разными типами:
+	m_d == m_i;
+	m_d != m_i;
+
+
 	linalg::Matrix<T> m0;
 	cout << "\nm0.empty(): " << m0.empty() << endl;
 }
@@ -20,10 +47,10 @@ void constructor_by_default(){
 //     cout << "\n\n________________________________________________________\n";
 // 	cout << "linalg::Matrix m0(m_rows);\n";
 // 	cout << "Take (int m_rows) and make a m_rows-high column matrix.\n";
-// 	linalg::Matrix m0(10);
+// 	linalg::Matrix<T> m0(10);
 // 	cout << "Exceptions:\nm_rows <= 0.\n";
 // 	try{
-// 		linalg::Matrix m1(-1);
+// 		linalg::Matrix<T> m1(-1);
 // 	}
 // 	catch (runtime_error exc) {
 // 		cerr << exc.what();
@@ -34,10 +61,10 @@ void constructor_by_default(){
 // 	cout << "\n\n________________________________________________________\n";
 // 	cout << "linalg::Matrix m0(m_rows, m_columns);\n";
 // 	cout << "Take (int m_rows, int m_columns) and make a m_rows-high and m_columns-wide matrix.\n";
-// 	linalg::Matrix m0(10, 10);
+// 	linalg::Matrix<T> m0(10, 10);
 // 	cout << "Exceptions:\n1. m_rows <= 0.\n2. m_columns <= 0.\n";
 // 	try{
-// 		linalg::Matrix m1(-1, -3);
+// 		linalg::Matrix<T> m1(-1, -3);
 // 	}
 // 	catch (runtime_error exc) {
 // 		cerr << exc.what();
@@ -48,16 +75,16 @@ void constructor_by_default(){
 // 	cout << "\n\n________________________________________________________\n";
 // 	cout << "linalg::Matrix m0(std::initializer_list<double>);\n";
 // 	cout << "Take (std::initializer_list<double>) and make a matrix with elements in the column.\n";
-// 	linalg::Matrix m0{1.5, 10.5, 14.5, 5.9};
+// 	linalg::Matrix<double> m0{1.5, 10.5, 14.5, 5.9};
 // }
 
 // void constructor_init_init_list(){
 // 	cout << "\n\n________________________________________________________\n";
 // 	cout << "linalg::Matrix m0(std::initializer_list<std::initializer_list<double>>);\n";
 // 	cout << "Take (std::initializer_list<std::initializer_list<double>>) and make a matrix with these elements.\n";
-// 	linalg::Matrix m0{{1.5, 10.5}, {14.5, 5.9}};
+// 	linalg::Matrix<double> m0{{1.5, 10.5}, {14.5, 5.9}};
 // 	try{
-// 		linalg::Matrix m1{{1.5, 10.5}, {14.5, 5.9, 4.5}};
+// 		linalg::Matrix<double> m1{{1.5, 10.5}, {14.5, 5.9, 4.5}};
 // 	}
 // 	catch(runtime_error exc){
 // 		cerr << exc.what();
@@ -685,10 +712,10 @@ void constructor_by_default(){
 
 void test_for_constructors(){
     constructor_by_default();
-//     constructor_one_arg();
-// 	constructor_two_arg();
-// 	constructor_init_list();
-// 	constructor_init_init_list();
+    // constructor_one_arg();
+	// constructor_two_arg();
+	// constructor_init_list();
+	// constructor_init_init_list();
 // 	constructor_copy();
 // 	constructor_move();
 }

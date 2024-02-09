@@ -8,7 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/lab2_1/Matrix.cpp" "CMakeFiles/buildin.dir/Matrix.cpp.obj" "gcc" "CMakeFiles/buildin.dir/Matrix.cpp.obj.d"
   "C:/lab2_1/lab2_1.cpp" "CMakeFiles/buildin.dir/lab2_1.cpp.obj" "gcc" "CMakeFiles/buildin.dir/lab2_1.cpp.obj.d"
   "C:/lab2_1/test.cpp" "CMakeFiles/buildin.dir/test.cpp.obj" "gcc" "CMakeFiles/buildin.dir/test.cpp.obj.d"
   )

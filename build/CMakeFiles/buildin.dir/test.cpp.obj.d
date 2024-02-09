@@ -156,4 +156,5 @@ CMakeFiles/buildin.dir/test.cpp.obj: C:/lab2_1/test.cpp C:/lab2_1/test.h \
  c:\users\ivan2\gcc\include\c++\12.2.0\bits\locale_conv.h \
  c:\users\ivan2\gcc\include\c++\12.2.0\bits\quoted_string.h \
  c:\users\ivan2\gcc\include\c++\12.2.0\sstream \
- c:\users\ivan2\gcc\include\c++\12.2.0\bits\sstream.tcc
+ c:\users\ivan2\gcc\include\c++\12.2.0\bits\sstream.tcc \
+ C:/lab2_1/Matrix.hpp
